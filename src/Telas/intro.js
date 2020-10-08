@@ -6,22 +6,22 @@ import LottieView from 'lottie-react-native';
 const slides = [
   {
     key: 'one',
-    title: 'Title 1',
-    text: 'Description.\nSay something cool',
+    title: 'Bem Vindo !',
+    text: 'Esse é o app feito para os nossos clientes e temos certeza que você vai amar.',
     anima: require('../Animacao/24972-hi.json'),
     backgroundColor: '#6f3a80',
   },
   {
     key: 'two',
-    title: 'Title 2',
-    text: 'Other cool stuff',
+    title: 'Tudo que você precisa.',
+    text: 'Aqui você irá encontrar todas as informações que você precisa saber sobre o seu projeto com a WF',
     anima: require('../Animacao/27315-appointment-booking-with-smartphone.json'),
     backgroundColor: '#e9447b',
   },
   {
     key: 'three',
-    title: 'Rocket guy',
-    text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
+    title: 'Contato',
+    text: 'E claro poderá entrar em contato com nossa equipe muito mais rápido, abrir chamados e muito mais, bora começar ?',
     anima: require('../Animacao/30852-dating-app-online-chat.json'),
     backgroundColor: '#510d67',
   }
@@ -55,7 +55,7 @@ export default class Intro extends React.Component {
     if (this.state.showRealApp) {
       return this.props.navigation.push('Inicio');
     } else {
-      return <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}/>;
+      return <AppIntroSlider renderItem={this._renderItem} doneLabel={'Vamos!'} nextLabel={'próximo'} data={slides} onDone={this._onDone}/>;
     }
   }
 }
@@ -63,9 +63,17 @@ export default class Intro extends React.Component {
 
 const styles = StyleSheet.create({
     slide:{},
-    title:{},
+    title:{
+      color:'#fff',
+      fontSize:35
+    },
     image:{},
-    text:{},
+    text:{
+      color:'#fff',
+      padding:15,
+      textAlign:'center',
+      fontSize:20
+    },
     corpo:{
         alignItems: 'center',
         flex: 1,

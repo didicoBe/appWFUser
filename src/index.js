@@ -13,7 +13,7 @@ export default class index extends Component {
     render() {
         return (
             <Root>
-                <Routes/>                
+                <Routes/>              
             </Root>
         )
     }
