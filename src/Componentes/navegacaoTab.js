@@ -15,10 +15,10 @@ export default class navegacaoTab extends Component {
                     <TouchableOpacity onPress={()=>{this.props.navega.navigate('Projetos')}} style={style.btns} >
                         <FontAwesomeIcon color={ '#fff' }  size={ 30 } icon={ faTasks } />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{}} style={style.btns} >
+                    <TouchableOpacity onPress={()=>{this.props.navega.navigate('Suporte')}} style={style.btns} >
                         <FontAwesomeIcon color={ '#fff' }  size={ 30 } icon={ faHandsHelping } />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{}} style={style.btns} >
+                    <TouchableOpacity onPress={()=>{this.props.navega.navigate('Usuario')}} style={style.btns} >
                         <FontAwesomeIcon color={ '#fff' }  size={ 30 } icon={ faUserCircle } />
                     </TouchableOpacity>
                 </View>

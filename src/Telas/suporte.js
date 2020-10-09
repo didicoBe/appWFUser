@@ -1,37 +1,45 @@
 import React, { Component } from 'react'
-import { Text, ScrollView, StyleSheet,TouchableOpacity, View } from 'react-native'
+import { Text, ScrollView, StyleSheet,Image, View } from 'react-native'
 import NavegacaoTab from '../Componentes/navegacaoTab'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faFolder, faFolderOpen, faChartArea } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTicketAlt, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
 import LottieView from 'lottie-react-native';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Projetos extends Component {
+export default class Suporte extends Component {
     render() {
         return (
             <>
                 <ScrollView style={{marginBottom:60}}>
-                    {/* animação */}
-                    <View style={{flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                        <LottieView source={require('../Animacao/drawkit-grape-animation-3-LOOP.json')} autoPlay loop style={{height:300,width:300}}/>
+                   
+                    {/* cards */}
+                    <View style={style.card}>
+                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faPlus } />
+                            <Text style={style.valor}>Novo Ticket</Text>
+                        </View>
+                    </View>
+                    <View style={style.card}>
+                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faTicketAlt } />
+                            <Text style={style.valor}>Tickets em aberto</Text>
+                        </View>
+                    </View>
+                    <View style={style.card}>
+                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faCalendarCheck } />
+                            <Text style={style.valor}>Tickets fechados</Text>
+                        </View>
+                    </View>
+                    {/* cards */}
+
+                     {/* animação */}
+                     <View style={{flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                        <LottieView source={require('../Animacao/drawkit-grape-animation-4-LOOP.json')} autoPlay loop style={{height:300,width:300}}/>
                     </View>
                     {/* animação */}
-                    {/* cards */}
-                    <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Abertos')} >
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolderOpen } />
-                            <Text style={style.valor}>Em Aberto</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Fechados')} >
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolder } />
-                            <Text style={style.valor}>Concluidos</Text>
-                        </View>
-                    </TouchableOpacity>
-                    
-                    {/* cards */}
+
                 </ScrollView>
                 <NavegacaoTab navega={this.props.navigation}/>
             </>
@@ -77,7 +85,8 @@ const style = StyleSheet.create({
     valor:{
         color:'#fff',
         fontSize:30,
-        fontFamily:'OCR-ABTRegular'
+        fontFamily:'OCR-ABTRegular',
+        width:170
     },
     cardAndamento:{
         backgroundColor:'#6f3a80',

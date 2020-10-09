@@ -94,14 +94,7 @@ export default class inicio extends Component {
     render() {
         return (
             <>
-                <View style={{flexDirection:'row',justifyContent:'space-around',alignContent:'center',alignItems:'baseline'}}>
-                    <View>
-                        <Image style={style.img} source={require('../Img/logo_WF_Final_ajustado_LogoCOR.png')}/>
-                    </View>
-                    <Text style={style.Titulo}>Dashboard</Text>
-                </View>
                 <ScrollView style={{marginBottom:60}}>
-
                     {/* cards */}
                     <View style={style.card}>
                         <Text style={style.textoCard}>Projetos Finalizados</Text>
@@ -151,7 +144,7 @@ export default class inicio extends Component {
                     </View>
                     {/* projetos em andamento */}
                 </ScrollView>
-            <NavegacaoTab navega={this.props.navigation}/>
+                <NavegacaoTab navega={this.props.navigation}/>
             </>
         )
     }

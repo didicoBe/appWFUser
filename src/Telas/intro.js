@@ -3,6 +3,7 @@ import { StyleSheet,View,Text } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LottieView from 'lottie-react-native';
 
+import { StackActions, NavigationActions } from 'react-navigation';
 const slides = [
   {
     key: 'one',
@@ -53,7 +54,11 @@ export default class Intro extends React.Component {
 
   render() {
     if (this.state.showRealApp) {
-      return this.props.navigation.push('Inicio');
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Inicio' })],
+      });    
+      return this.props.navigation.dispatch(resetAction);;
     } else {
       return <AppIntroSlider renderItem={this._renderItem} doneLabel={'Vamos!'} nextLabel={'próximo'} data={slides} onDone={this._onDone}/>;
     }

@@ -5,6 +5,8 @@ import RadialGradient from 'react-native-radial-gradient';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { StackActions, NavigationActions } from 'react-navigation';
+
 export default class login extends Component {
 
     state={
@@ -23,8 +25,13 @@ export default class login extends Component {
         }
         
         await apiWF.post('/login', body).then(response=>{
+            console.log(response)
             this.SalvaStore(response).then(()=>{
-                this.props.navigation.navigate('Intro')
+                const resetAction = StackActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: 'Intro' })],
+                });
+                this.props.navigation.dispatch(resetAction);
             })
             
             
@@ -49,7 +56,6 @@ export default class login extends Component {
 
         var resposta = false
 
-
         
         if(login === null || token === null){
             return resposta
@@ -69,8 +75,6 @@ export default class login extends Component {
                         nome:nome
                     })
                 }
-                
-
                 return  true
             }).catch((erro)=>{
                 this.setState({
@@ -80,7 +84,6 @@ export default class login extends Component {
                 return false
             })
     
-            return resposta
             
         }
 
@@ -91,14 +94,20 @@ export default class login extends Component {
         await AsyncStorage.setItem('login', response.data.response[0].email);
         await AsyncStorage.setItem('token', response.data.response[0].token);
         await AsyncStorage.setItem('nome', response.data.response[0].nome);
-        await AsyncStorage.setItem('id', response.data.response[0].id);
+        await AsyncStorage.setItem('id', response.data.response[0].idcliente);
     }
 
     componentDidMount(){
-      const logado =  this.validaOnline();
-      if(logado){
-          this.props.navigation.push('Inicio')
-      }
+      this.validaOnline().then((r)=>{
+        if(r){
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Inicio' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
+      })
+     
     }
 
 
@@ -146,7 +155,6 @@ const style = StyleSheet.create({
     },
     card:{
         width:300,
-        height:300,
         backgroundColor:"#f1f1f1",
         borderRadius:30,
         padding:30,

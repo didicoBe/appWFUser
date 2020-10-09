@@ -1,84 +1,64 @@
 import React from 'react'
-import {  StyleSheet,TouchableOpacity} from 'react-native'
-import { createStackNavigator, TransitionSpecs,TransitionPresets } from "react-navigation-stack";
+import {  Image,View, Text} from 'react-native'
+import { createStackNavigator, TransitionPresets } from "react-navigation-stack";
 import { createAppContainer,NavigationActions } from "react-navigation";
-import { fromLeft } from 'react-navigation-transitions';
+
 
 
 
 import Inicio from "./Telas/inicio";
 import Login from "./Telas/login";
 import Intro from "./Telas/intro";
-import Projetos from "./Telas/projetos";
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-const config = {
-    animation: 'spring',
-    config: {
-      stiffness: 1000,
-      damping: 500,
-      mass: 3,
-      overshootClamping: true,
-      restDisplacementThreshold: 0.01,
-      restSpeedThreshold: 0.01,
-    },
-  };
-  const transitionConfig = () => {
-    return {
-      transitionSpec: {
-        duration: 750,
-        easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing,
-        useNativeDriver: true,
-      },
-      screenInterpolator: sceneProps => {      
-        const { layout, position, scene } = sceneProps
-  
-        const thisSceneIndex = scene.index
-        const width = layout.initWidth
-  
-        const translateX = position.interpolate({
-          inputRange: [thisSceneIndex - 1, thisSceneIndex],
-          outputRange: [width, 0],
-        })
-  
-        return { transform: [ { translateX } ] }
-      },
-    }
-  }
+import Projetos from "./Telas/projetos";
+import Abertos from "./Telas/Projetos/abertos";
+import Fechados from "./Telas/Projetos/fechados";
+import Detalhes from "./Telas/Projetos/detalhado";
+
+import Suporte from "./Telas/suporte";
+import Usuarios from "./Telas/usuario";
+
+
 
 export default createAppContainer(
-  
-
     createStackNavigator(
         {
             Inicio :{
                 screen: Inicio,
                 name:'Inicio',
-                navigationOptions: ()=> ({
-                    headerShown: false,
-                })
+                
             },
             Login :{
                 screen: Login,
                 name:'Login',
-                navigationOptions: ()=> ({
-                    headerShown: false,
-                })
             },
             Intro :{
                 screen: Intro,
                 name:'Intro',
-                navigationOptions: ()=> ({
-                    headerShown: false,
-                })
             },
             Projetos :{
                 screen: Projetos,
                 name:'Projetos',
-                navigationOptions: ()=> ({
-                    headerShown: false,
-                })
+            },
+            Abertos :{
+                screen: Abertos,
+                name:'Abertos',
+            },
+            Fechados :{
+                screen: Fechados,
+                name:'Fechados',
+            },
+            Detalhes :{
+                screen: Detalhes,
+                name:'Detalhes',
+            },
+            Suporte :{
+                screen: Suporte,
+                name:'Suporte',
+            },
+            Usuario :{
+                screen: Usuarios,
+                name:'Usuario',
             },
         },
         {
@@ -88,10 +68,29 @@ export default createAppContainer(
                 gestureEnabled:true,
                 gestureDirection:'horizontal',
                 ...TransitionPresets.SlideFromRightIOS ,
-                
-            },
-            navigationOptions: {
-            },
+                header:(info)=>{
+                    
+                    if(info.scene.route.routeName !== 'Login'){
+                        if(info.scene.route.routeName !== 'Intro'){
+                            return(
+                                <View style={{flexDirection:'row',justifyContent:'space-around',alignContent:'center',alignItems:'baseline'}}>
+                                    <View>
+                                        <Image style={{height:100,width:150,resizeMode:'contain',}} source={require('./Img/logo_WF_Final_ajustado_LogoCOR.png')}/>
+                                    </View>
+                                    <Text style={{textAlign:'left',fontSize:30,fontWeight:'100',padding:25,color:'#510d67',fontFamily:'OCR-ABTRegular'}}>{info.scene.route.routeName}</Text>
+                                </View>
+                            )
+                        }
+                    } else{
+                        return null
+                    }  
+                        
+                },
+            }
         }
     )
+    
 )
+
+
+
