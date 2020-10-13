@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { View, StyleSheet,Image,Alert  } from 'react-native'
 import {Form, Item, Input, Label, Button,Text} from 'native-base'
 import RadialGradient from 'react-native-radial-gradient';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
-
 import { StackActions, NavigationActions } from 'react-navigation';
+import SplashScreen from 'react-native-splash-screen'
+import * as Animatable from 'react-native-animatable';
+
 
 export default class login extends Component {
 
@@ -15,6 +17,8 @@ export default class login extends Component {
         token:'',
         logado:false
     }
+
+    
 
     login = async ()=>{
         
@@ -26,6 +30,10 @@ export default class login extends Component {
         
         await apiWF.post('/login', body).then(response=>{
             console.log(response)
+
+
+
+
             this.SalvaStore(response).then(()=>{
                 const resetAction = StackActions.reset({
                     index: 0,
@@ -56,27 +64,30 @@ export default class login extends Component {
 
         var resposta = false
 
+        console.log(login)
+        console.log(token)
+        console.log(nome)
+
         
         if(login === null || token === null){
+            console.log('deu null')
             return resposta
 
         }else{
             resposta = apiWF.get('/login/valida/'+login+'/'+token).then(response=>{
-
-
-                if(response.data.permissao === 'admin'){
-                    this.setState({
-                        logado: true,
-                        nome:nome
-                    })
-                }else{
-                    this.setState({
-                        logado: false,
-                        nome:nome
-                    })
-                }
+                console.log('validado')
+                this.setState({
+                    logado: true,
+                    nome:nome
+                })
+                const resetAction = StackActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: 'Inicio' })],
+                });
+                this.props.navigation.dispatch(resetAction)
                 return  true
             }).catch((erro)=>{
+                console.log('nao validado')
                 this.setState({
                     logado: false,
                     nome:nome
@@ -98,35 +109,32 @@ export default class login extends Component {
     }
 
     componentDidMount(){
-      this.validaOnline().then((r)=>{
-        if(r){
-            const resetAction = StackActions.reset({
-                index: 0,
-                actions: [NavigationActions.navigate({ routeName: 'Inicio' })],
-            });
-            this.props.navigation.dispatch(resetAction);
-        }
-      })
+        this.validaOnline()
+        SplashScreen.hide()
+        
      
     }
 
 
 
     render() {
+       
+
+
         return (
             <RadialGradient style={{width:"100%",height:"100%"}}
                         colors={['#6f3a80','#e9447b']}
                         center={[150]}
                         radius={350}>
                 <View style={style.corpo}>
-                    <View>
+                    <Animatable.View animation="zoomInUp">
                         <Image style={style.img} source={require('../Img/logo_crv_Final_ajustado_LogoNEGATIVO.png')}/>
-                    </View>
-                    <View style={style.card}>
+                    </Animatable.View>
+                    <Animatable.View animation='bounceInUp' style={style.card}>
                         <Form>
                             <Item floatingLabel>
                                 <Label> Usuario</Label>
-                                <Input onChangeText={(text)=>{this.setState({login:text})}} />
+                                <Input onChangeText={(text)=>{this.setState({login:text})}}  keyboardType={'email-address'} />
                             </Item>
                             <Item floatingLabel>
                                 <Label>Senha</Label>
@@ -138,7 +146,7 @@ export default class login extends Component {
                                 </Button>
                             </View>
                         </Form>
-                    </View>
+                    </Animatable.View>
                 </View>
 
             </RadialGradient>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, ScrollView, StyleSheet,Image, View } from 'react-native'
+import { Text, ScrollView, StyleSheet,TouchableOpacity, View } from 'react-native'
 import NavegacaoTab from '../Componentes/navegacaoTab'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPlus, faTicketAlt, faCalendarCheck } from '@fortawesome/free-solid-svg-icons'
 import LottieView from 'lottie-react-native';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 export default class Suporte extends Component {
     render() {
@@ -14,24 +15,30 @@ export default class Suporte extends Component {
                 <ScrollView style={{marginBottom:60}}>
                    
                     {/* cards */}
-                    <View style={style.card}>
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faPlus } />
-                            <Text style={style.valor}>Novo Ticket</Text>
-                        </View>
-                    </View>
-                    <View style={style.card}>
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faTicketAlt } />
-                            <Text style={style.valor}>Tickets em aberto</Text>
-                        </View>
-                    </View>
-                    <View style={style.card}>
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faCalendarCheck } />
-                            <Text style={style.valor}>Tickets fechados</Text>
-                        </View>
-                    </View>
+                    <Animatable.View animation='bounceInUp'>
+                        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Novo_Ticket')}>
+                            <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                                <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faPlus } />
+                                <Text style={style.valor}>Novo Ticket</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animatable.View>
+                    <Animatable.View animation='bounceInUp'>
+                        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Tickets_abertos')}>
+                            <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                                <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faTicketAlt } />
+                                <Text style={style.valor}>Tickets em aberto</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animatable.View>
+                    <Animatable.View animation='bounceInUp'>
+                        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Tickets_fechados')}>
+                            <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                                <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faCalendarCheck } />
+                                <Text style={style.valor}>Tickets fechados</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animatable.View>
                     {/* cards */}
 
                      {/* animação */}

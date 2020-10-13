@@ -16,6 +16,14 @@ import Fechados from "./Telas/Projetos/fechados";
 import Detalhes from "./Telas/Projetos/detalhado";
 
 import Suporte from "./Telas/suporte";
+import Taberto from "./Telas/Suporte/Taberto";
+import Tfechado from "./Telas/Suporte/Tfechado";
+import Tnovo from "./Telas/Suporte/Tnovo";
+import Tdetalhado from "./Telas/Suporte/Tdetalhado";
+
+
+
+
 import Usuarios from "./Telas/usuario";
 
 
@@ -55,6 +63,23 @@ export default createAppContainer(
             Suporte :{
                 screen: Suporte,
                 name:'Suporte',
+            },
+            Tickets_abertos :{
+                screen: Taberto,
+                name:'Ticket Aberto',
+            },
+            Tickets_fechados :{
+                screen: Tfechado,
+                name:'Ticket Fechado',
+            },
+            Novo_Ticket :{
+                screen: Tnovo,
+                name:'Novo',
+                title:'Novo',
+            },
+            Ticket_detalhado :{
+                screen: Tdetalhado,
+                name:'Ticket Detalhado',
             },
             Usuario :{
                 screen: Usuarios,

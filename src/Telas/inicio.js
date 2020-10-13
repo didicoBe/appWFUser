@@ -7,6 +7,7 @@ import { faChartBar, faChartPie, faChartArea } from '@fortawesome/free-solid-svg
 import LottieView from 'lottie-react-native';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 
 
@@ -96,6 +97,7 @@ export default class inicio extends Component {
             <>
                 <ScrollView style={{marginBottom:60}}>
                     {/* cards */}
+                    <Animatable.View animation='bounceInUp'>
                     <View style={style.card}>
                         <Text style={style.textoCard}>Projetos Finalizados</Text>
                         <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
@@ -103,6 +105,9 @@ export default class inicio extends Component {
                             <Text style={style.valor}>{this.state.ProjFin}</Text>
                         </View>
                     </View>
+                    </Animatable.View>
+                    
+                    <Animatable.View animation='bounceInUp'>
                     <View style={style.card}>
                         <Text style={style.textoCard}>Projetos em Aberto</Text>
                         <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
@@ -110,6 +115,9 @@ export default class inicio extends Component {
                             <Text style={style.valor}>{this.state.ProjAb}</Text>
                         </View>
                     </View>
+                    </Animatable.View>
+                    
+                    <Animatable.View animation='bounceInUp'>
                     <View style={style.card}>
                         <Text style={style.textoCard}>Chamados em aberto</Text>
                         <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
@@ -117,6 +125,7 @@ export default class inicio extends Component {
                             <Text style={style.valor}>{this.state.TicketsAb}</Text>
                         </View>
                     </View> 
+                    </Animatable.View>
                     {/* cards */}
 
                     {/* animação */}
@@ -131,9 +140,9 @@ export default class inicio extends Component {
                             {
                                 this.state.dataProj.map((dados,i)=>{
                                     return(
-                                    <ListItem key={i}>
-                                        <View  style={{flex:1,flexDirection:'row',justifyContent:'space-between',alignContent:'center',alignItems:'center'}}>
-                                            <Text style={style.textAndamento}>{dados.nome}</Text>
+                                    <ListItem key={i} >
+                                        <View  style={{flex:1,flexDirection:'row',justifyContent:'space-between',alignContent:'center',alignItems:'center'}} >
+                                            <Text style={style.textAndamento} onPress={()=>this.props.navigation.navigate('Detalhes',{projeto:dados})}>{dados.nome}</Text>
                                             <Text style={style.textAndamento}>{dados.progresso}%</Text>
                                         </View>
                                     </ListItem>

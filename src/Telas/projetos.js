@@ -6,6 +6,7 @@ import { faFolder, faFolderOpen, faChartArea } from '@fortawesome/free-solid-svg
 import LottieView from 'lottie-react-native';
 import apiWF from '../api'
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 export default class Projetos extends Component {
     render() {
@@ -17,20 +18,26 @@ export default class Projetos extends Component {
                         <LottieView source={require('../Animacao/drawkit-grape-animation-3-LOOP.json')} autoPlay loop style={{height:300,width:300}}/>
                     </View>
                     {/* animação */}
+
+
+
                     {/* cards */}
-                    <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Abertos')} >
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolderOpen } />
-                            <Text style={style.valor}>Em Aberto</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Fechados')} >
-                        <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
-                            <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolder } />
-                            <Text style={style.valor}>Concluidos</Text>
-                        </View>
-                    </TouchableOpacity>
-                    
+                    <Animatable.View animation='bounceInUp'>
+                        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Abertos')} >
+                            <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                                <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolderOpen } />
+                                <Text style={style.valor}>Em Aberto</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animatable.View>
+                    <Animatable.View animation='bounceInUp'>
+                        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate('Fechados')} >
+                            <View  style={{flexDirection:'row',justifyContent:'space-evenly',alignContent:'center',alignItems:'center', marginTop:20}}>
+                                <FontAwesomeIcon color={ '#fff' }  size={ 80 } icon={ faFolder } />
+                                <Text style={style.valor}>Concluidos</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animatable.View>
                     {/* cards */}
                 </ScrollView>
                 <NavegacaoTab navega={this.props.navigation}/>
